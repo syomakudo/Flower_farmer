@@ -5,11 +5,14 @@ MINILIBX_DIR	= minilibx-linux
 GNL_DIR			= get_next_line
 PRINTF_DIR		= ft_printf
 X11_DIR 		= /usr/X11
-INCLUDE			=  -I$(MINILIBX_DIR) -I/usr/include -I$(GNL_DIR)/include -I$(PRINTF_DIR)/include
+INCLUDE			=  -I$(MINILIBX_DIR) -I/usr/include -I$(GNL_DIR)/include -I$(PRINTF_DIR)/include -I./include
 LIBS_DIR 		=  -L$(MINILIBX_DIR) -L$(X11_DIR)/lib
 LIBS 			= -lXext -lX11 -lm -lz -lmlx_Darwin -framework OpenGL -framework AppKit $(GNL_DIR)/get_next_line.a $(PRINTF_DIR)/libftprintf.a
 VPATH 			= ./srcs
-SRCS			= main.c
+SRCS			= main.c \
+				  make_map.c \
+				  check_map_main.c \
+				  check_map_utils1.c
 OBJ_DIR			= objs
 OBJS			= $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 
