@@ -6,7 +6,7 @@
 /*   By: syoma.k <syoma.k@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 18:45:21 by syoma.k           #+#    #+#             */
-/*   Updated: 2023/05/06 21:21:33 by syoma.k          ###   ########.fr       */
+/*   Updated: 2023/05/10 11:34:03 by syoma.k          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,7 @@ char	*push_line(char *line_buf)
 		return (NULL);
 	while (line_buf[i] != '\n' && line_buf[i] != '\0')
 		i++;
-	if (line_buf[i] == '\0')
-		i--;
-	reline = ft_calloc(i + (size_t)2, sizeof(char));
+	reline = ft_calloc(i + (size_t)1, sizeof(char));
 	if (!reline)
 		return (NULL);
 	i = 0;
@@ -84,8 +82,6 @@ char	*push_line(char *line_buf)
 		reline[i] = line_buf[i];
 		i++;
 	}
-	if (line_buf[i] == '\n')
-		reline[i++] = '\n';
 	reline[i] = '\0';
 	return (reline);
 }
