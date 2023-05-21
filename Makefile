@@ -14,7 +14,8 @@ SRCS			= main.c \
 				  check_map_main.c \
 				  check_map_utils1.c \
 				  check_map_utils2.c \
-				  check_map_utils3.c
+				  check_map_utils3.c \
+				  draw_map.c 
 OBJ_DIR			= objs
 OBJS			= $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 

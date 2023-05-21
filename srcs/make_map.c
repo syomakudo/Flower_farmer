@@ -1,21 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: syoma.k <syoma.k@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/21 12:41:37 by syoma.k           #+#    #+#             */
+/*   Updated: 2023/05/22 00:46:39 by syoma.k          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include.h"
 
 /*初期化*/
 void	init_data(t_data *data)
 {
+	int	i;
+
+	i = 0;
 	data->mlx = NULL;
 	data->win = NULL;
 	data->x_now = 0;
 	data->y_now = 0;
 	data->x_start = 0;
 	data->y_start = 0;
-	data->x_goal = 0;
-	data->y_goal = 0;
 	data->items = 0;
-	data->x_max = 0;
-	data->y_max = 0;
+	data->count = 0;
 	data->col = 0;
 	data->row = 0;
+	while (i < 5)
+		data->img[i++].img = NULL;
 }
 
 /*gnlを使用する*/
@@ -50,7 +64,7 @@ int	count_read_row(char *file_name)
 	int		fd;
 	int		count;
 	char	buf[1];
-	ssize_t		k;
+	ssize_t	k;
 
 	count = 0;
 	fd = open(file_name, O_RDONLY);
@@ -77,7 +91,8 @@ int	count_read_row(char *file_name)
 /*mapを作成する*/
 t_data	make_map(char *file_name)
 {
-	t_data data;
+	t_data	data;
+
 	init_data(&data);
 	data.row = count_read_row(file_name);
 	if (data.row == 0)

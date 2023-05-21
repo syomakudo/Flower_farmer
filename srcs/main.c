@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: syoma.k <syoma.k@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/21 12:41:15 by syoma.k           #+#    #+#             */
+/*   Updated: 2023/05/22 01:01:03 by syoma.k          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include.h"
 
 /*エラーを出力
@@ -12,135 +24,79 @@
 void	ft_error(int num)
 {
 	if (num == 0)
-		printf("map invalid\n");
+		ft_printf("Error\nmap invalid\n");
 	else if (num == -1)
-		printf("malloc_error\n");
+		ft_printf("Error\nmalloc_error\n");
 	else if (num == -2)
-		printf("file open error\n");
+		ft_printf("Error\nfile open error\n");
 	else if (num == -3)
-		printf("file read error\n");
+		ft_printf("Error\nfile read error\n");
 	else if (num == -4)
-		printf("file close error\n");
+		ft_printf("Error\nfile close error\n");
 	else if (num == -5)
-		printf("gnl error\n");
+		ft_printf("Error\ngnl error\n");
+	else if (num == 1)
+		ft_printf("Error\nargument error\n");
 	exit(1);
+}
+
+/*
+*mapの解放
+*mlx_destroy_imageでimgを解放
+*mlx_destroy_windowでwindowを解放
+*/
+void	free_all(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 5)
+	{
+		if (data->img[i].img != NULL)
+			mlx_destroy_image(data->mlx, data->img[i].img);
+		i++;
+	}
+	if (data->win != NULL)
+		mlx_destroy_window(data->mlx, data->win);
+	free_map(data->map);
+	exit(0);
+}
+
+/*mlxの前処理*/
+void	set_mlx(t_data *data)
+{
+	data->mlx = mlx_init();
+	data->win = mlx_new_window(data->mlx, 50 * data->col, 50 * data->row,
+			"Flower farmer");
+	data->img[0].img = mlx_xpm_file_to_image(data->mlx, IMG_ZERO,
+			&data->img[0].width, &data->img[0].height);
+	data->img[1].img = mlx_xpm_file_to_image(data->mlx, IMG_WALL,
+			&data->img[1].width, &data->img[1].height);
+	data->img[2].img = mlx_xpm_file_to_image(data->mlx, IMG_ITEM,
+			&data->img[2].width, &data->img[2].height);
+	data->img[3].img = mlx_xpm_file_to_image(data->mlx, IMG_PLAYER,
+			&data->img[3].width, &data->img[3].height);
+	data->img[4].img = mlx_xpm_file_to_image(data->mlx, IMG_GOAL,
+			&data->img[4].width, &data->img[4].height);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	int		j;
-	int		i;
-	char	*file_name;
-	t_img	img[5];
 
-	(void)argc;
-	(void)argv;
-	file_name = "/Users/syoma.k/Desktop/so_long/maps/3ok.ber";
-	int		fd;
-
-	data = make_map(file_name);
-
-	for (int j = 0; j < data.row; j++)
-		printf("%s\n", data.map[j]);
-	printf("row: %d\n", data.row);
-	printf("col: %d\n", data.col);
-
-	/*check_map*/
+	if (argc != 2)
+		ft_error(1);
+	data = make_map(argv[1]);
 	check_map(&data);
-
-	// メモリの解放
-	for (int j = 0; j < data.row; j++)
-	{
-		free(data.map[j]);
-	}
-	free(data.map);
-
-
-	return 0;
-
-
-	/*mapのスタートとゴールの位置を出力*/
-	printf("start: %d,%d\n", data.y_start, data.x_start);
-	printf("goal: %d,%d\n", data.y_goal, data.x_goal);
-
-	// 2次元配列の値を出力する
-	for (int j = 0; j < data.row; j++)
-	{
-		for (int i = 0; i < data.col; i++)
-		{
-			printf("%c ", data.map[j][i]); // %c で文字を表示
-		}
-		printf("\n");
-	}
-	// メモリの解放
-	for (int j = 0; j < data.row; j++)
-	{
-		free(data.map[j]);
-	}
-	free(data.map);
-	return (0);
-
-
-	/*make_window*/
-	data.mlx = mlx_init();
-	data.win = mlx_new_window(data.mlx, 50 * data.col, 50 * data.row, "Hello");
-	img[0].img = mlx_xpm_file_to_image(data.mlx,
-										"./img/snake.xpm",
-										&img[0].width,
-										&img[0].height);
-	img[1].img = mlx_xpm_file_to_image(data.mlx,
-										"./img/tooth.xpm",
-										&img[1].width,
-										&img[1].height);
-	img[2].img = mlx_xpm_file_to_image(data.mlx,
-										"./img/bacteria.xpm",
-										&img[2].width,
-										&img[2].height);
-	img[3].img = mlx_xpm_file_to_image(data.mlx,
-										"./img/trashBox2.xpm",
-										&img[3].width,
-										&img[3].height);
-	img[4].img = mlx_xpm_file_to_image(data.mlx,
-										"./img/dentist2.xpm",
-										&img[4].width,
-										&img[4].height);
-	j = 0;
-	while (j < data.row)
-	{
-		i = 0;
-		while (i < data.col)
-		{
-			if (data.map[j][i] == '1')
-				mlx_put_image_to_window(data.mlx, data.win, img[1].img, i * 50,
-						j * 50);
-			else if (data.map[j][i] == 'C')
-				mlx_put_image_to_window(data.mlx, data.win, img[2].img, i * 50,
-						j * 50);
-			else if (data.map[j][i] == 'P')
-				mlx_put_image_to_window(data.mlx, data.win, img[4].img, i * 50,
-						j * 50);
-			else if (data.map[j][i] == 'E')
-				mlx_put_image_to_window(data.mlx, data.win, img[3].img, i * 50,
-						j * 50);
-			i++;
-		}
-		j++;
-	}
-	// 2次元配列の値を出力する
-	for (int j = 0; j < data.row; j++)
-	{
-		for (int i = 0; i < data.col; i++)
-		{
-			printf("%c ", data.map[j][i]); // %c で文字を表示
-		}
-		printf("\n");
-	}
-	// メモリの解放
-	for (int j = 0; j < data.row; j++)
-	{
-		free(data.map[j]);
-	}
-	free(data.map);
+	if (data.row > 20 || data.col > 33)
+		ft_error(0);
+	set_mlx(&data);
+	data.x_now = data.x_start;
+	data.y_now = data.y_start;
+	mlx_hook(data.win, KEY_PRESS, 1L << 0, key_event, &data);
+	mlx_hook(data.win, DESTROY_NOTIFY, 0L, button_event, &data);
+	mlx_loop_hook(data.mlx, draw_map, &data);
+	mlx_loop(data.mlx);
+	free_all(&data);
 	return (0);
 }

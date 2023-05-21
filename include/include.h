@@ -1,34 +1,49 @@
-#ifndef MY_MLX_HOOKS_H
-# define MY_MLX_HOOKS_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   include.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: syoma.k <syoma.k@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/22 00:34:01 by syoma.k           #+#    #+#             */
+/*   Updated: 2023/05/22 00:59:33 by syoma.k          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef INCLUDE_H
+# define INCLUDE_H
 
 # define KEY_PRESS 2
-# define KEY_RELEASE 3
-# define BUTTON_PRESS 4
-# define BUTTON_RELEASE 5
-# define POINTER_MOVE 6
 # define DESTROY_NOTIFY 17
+# define KEY_A 97
+# define KEY_D 100
+# define KEY_W 119
+# define KEY_S 115
+# define KEY_ESC 65307
+# define LEFT 65361
+# define RIGHT 65363
+# define UP 65362
+# define DOWN 65364
+# define IMG_ZERO "./img/kusa.xpm"
+# define IMG_WALL "./img/flower.xpm"
+# define IMG_ITEM "./img/villain.xpm"
+# define IMG_PLAYER "./img/human.xpm"
+# define IMG_GOAL "./img/trash.xpm"
 
-# define KEY_PRESS_MASK (1L << 0)
-# define KEY_RELEASE_MASK (1L << 1)
-# define BUTTON_PRESS_MASK (1L << 2)
-# define BUTTON_RELEASE_MASK (1L << 3)
-# define POINTER_MOVE_MASK (1L << 6)
-# define STRUCTURE_NOTIFY_MASK (1L << 17)
-#endif
-
-#include "../minilibx-linux/mlx.h"
-#include "get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+# include "../minilibx-linux/mlx.h"
+# include "ft_printf.h"
+# include "get_next_line.h"
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 typedef struct s_img
 {
-	void	*img;
-	int		width;
-	int		height;
-}			t_img;
+	void			*img;
+	int				width;
+	int				height;
+}					t_img;
 
 /*
 **col:横のマスの数
@@ -39,52 +54,56 @@ typedef struct s_img
 */
 typedef struct s_data
 {
-	void	*mlx;
-	void	*win;
-	char	**map;
-	int		x_now;
-	int		y_now;
-	int		x_start;
-	int		y_start;
-	int		x_goal;
-	int		y_goal;
-	int		items;
-	int		x_max;
-	int		y_max;
-	int		col;
-	int		row;
-}			t_data;
+	void			*mlx;
+	void			*win;
+	char			**map;
+	int				x_now;
+	int				y_now;
+	int				x_start;
+	int				y_start;
+	int				items;
+	int				count;
+	int				col;
+	int				row;
+	t_img			img[5];
+}					t_data;
 
 /*mapエラーチェック用の構造体*/
 typedef struct s_mapcheck
 {
-	int		count_p;
-	int		count_c;
-	int		count_e;
+	int				count_p;
+	int				count_c;
+	int				count_e;
 
-}			t_mapcheck;
+}					t_mapcheck;
 
 typedef struct s_stack
 {
-	int		x;
-	int		y;
-	size_t	num_c;
-	size_t	num_e;
+	int				x;
+	int				y;
+	size_t			num_c;
+	size_t			num_e;
 	struct s_stack	*next;
 }					t_stack;
 
+void				ft_error(int num);
+void				free_all(t_data *data);
+/*map作成*/
+t_data				make_map(char *file_name);
 
+/*mapエラーチェック*/
+void				check_map(t_data *data);
+int					check_count_pce(t_data *data, t_mapcheck *cmap);
+int					check_position_pce(t_data *data);
 
-void		ft_error(int num);
+void				free_map(char **map);
+void				free_stack(t_stack *stack);
+char				**copy_map(t_data *data);
 
-t_data		make_map(char *file_name);
+/*map表示*/
+void				set_mlx(t_data *data);
+int					draw_map(t_data *data);
+int					button_event(t_data *data);
+int					key_event(int keycode, t_data *data);
 
-/*mapエラーチェック用の関数*/
-void		check_map(t_data *data);
-int			check_count_pce(t_data *data, t_mapcheck *cmap);
-
-int	check_position_pce(t_data *data);
-
-void free_map(char **map);
-void free_stack(t_stack *stack);
-char **copy_map(t_data *data);
+#endif

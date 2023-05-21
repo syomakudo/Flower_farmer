@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map_main.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: syoma.k <syoma.k@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/21 12:39:53 by syoma.k           #+#    #+#             */
+/*   Updated: 2023/05/21 19:54:50 by syoma.k          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include.h"
 
 /*初期化mapcheck*/
@@ -63,10 +75,10 @@ int	check_frame(t_data *data)
 	return (0);
 }
 
-void check_map(t_data *data)
+void	check_map(t_data *data)
 {
-	t_mapcheck cmap;
-	
+	t_mapcheck	cmap;
+
 	init_mapcheck(&cmap);
 	if (check_row(data) == -1)
 		ft_error(0);

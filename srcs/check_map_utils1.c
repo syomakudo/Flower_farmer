@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map_utils1.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: syoma.k <syoma.k@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/21 12:40:54 by syoma.k           #+#    #+#             */
+/*   Updated: 2023/05/22 00:42:22 by syoma.k          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "include.h"
 /*このファイルではP,C,Eの数チェックをしている*/
 
@@ -9,16 +21,6 @@ void	put_add_start(t_data *data, size_t j, size_t i, t_mapcheck *cmap)
 	data->y_start = j;
 	data->x_start = i;
 	cmap->count_p++;
-}
-
-/*ゴール（E）のアドレスを格納する
-**count_Eをインクリメント
-*/
-void	put_add_goal(t_data *data, size_t j, size_t i, t_mapcheck *cmap)
-{
-	data->y_goal = j;
-	data->x_goal = i;
-	cmap->count_e++;
 }
 
 /*P,C,Eがあるかチェック
@@ -42,7 +44,7 @@ int	check_count_pce(t_data *data, t_mapcheck *cmap)
 			else if (data->map[j][i] == 'C')
 				data->items++;
 			else if (data->map[j][i] == 'E')
-				put_add_goal(data, j, i, cmap);
+				cmap->count_e++;
 			i++;
 		}
 		i = 0;

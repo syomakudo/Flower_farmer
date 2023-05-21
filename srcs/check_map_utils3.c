@@ -1,12 +1,23 @@
-#include "include.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map_utils3.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: syoma.k <syoma.k@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/21 12:41:04 by syoma.k           #+#    #+#             */
+/*   Updated: 2023/05/21 20:00:41 by syoma.k          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "include.h"
 
 /*
 *map の解放
 */
-void free_map(char **map)
+void	free_map(char **map)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (map[j])
@@ -21,9 +32,9 @@ void free_map(char **map)
 *リストの解放
 @param stack リスト
 */
-void free_stack(t_stack *stack)
+void	free_stack(t_stack *stack)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
 
 	while (stack)
 	{
@@ -38,11 +49,11 @@ void free_stack(t_stack *stack)
 @param data マップ情報
 @returns コピーしたマップのアドレス
 */
-char **copy_map(t_data *data)
+char	**copy_map(t_data *data)
 {
-	char **c_map;
-	int i;
-	int j;
+	char	**c_map;
+	int		i;
+	int		j;
 
 	j = 0;
 	c_map = malloc(sizeof(char *) * (data->row + 1));
@@ -65,5 +76,3 @@ char **copy_map(t_data *data)
 	c_map[j] = NULL;
 	return (c_map);
 }
-
-
