@@ -12,7 +12,9 @@ VPATH 			= ./srcs
 SRCS			= main.c \
 				  make_map.c \
 				  check_map_main.c \
-				  check_map_utils1.c
+				  check_map_utils1.c \
+				  check_map_utils2.c \
+				  check_map_utils3.c
 OBJ_DIR			= objs
 OBJS			= $(addprefix $(OBJ_DIR)/, $(SRCS:%.c=%.o))
 

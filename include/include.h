@@ -33,6 +33,9 @@ typedef struct s_img
 /*
 **col:横のマスの数
 **row:縦のマスの数
+**map:マップの情報
+**x_now:現在のx座標 xは横(row)
+**y_now:現在のy座標 yは縦(col)
 */
 typedef struct s_data
 {
@@ -55,16 +58,33 @@ typedef struct s_data
 /*mapエラーチェック用の構造体*/
 typedef struct s_mapcheck
 {
-	int		count_P;
-	int		count_C;
-	int		count_E;
+	int		count_p;
+	int		count_c;
+	int		count_e;
 
 }			t_mapcheck;
 
-void		ft_error(int i);
+typedef struct s_stack
+{
+	int		x;
+	int		y;
+	size_t	num_c;
+	size_t	num_e;
+	struct s_stack	*next;
+}					t_stack;
 
-void		make_map(t_data *data, char *file_name);
+
+
+void		ft_error(int num);
+
+t_data		make_map(char *file_name);
 
 /*mapエラーチェック用の関数*/
 void		check_map(t_data *data);
 int			check_count_pce(t_data *data, t_mapcheck *cmap);
+
+int	check_position_pce(t_data *data);
+
+void free_map(char **map);
+void free_stack(t_stack *stack);
+char **copy_map(t_data *data);

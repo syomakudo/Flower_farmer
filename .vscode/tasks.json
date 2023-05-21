@@ -5,11 +5,24 @@
             "label": "C/C++: gcc アクティブなファイルのビルド",
             "command": "/usr/bin/gcc",
             "args": [
-                "-fdiagnostics-color=always",
+				"-fdiagnostics-color=always",
+				"-I",
+				"${workspaceFolder}/include",
+				"-I",
+				"${workspaceFolder}/ft_printf/include",
+				"-I",
+				"${workspaceFolder}/get_next_line/include",
                 "-g",
-                "${file}",
+                "${fileDirname}/main.c",
+                "${fileDirname}/make_map.c",
+                "${fileDirname}/check_map_main.c",
+                "${fileDirname}/check_map_utils1.c",
+                "${fileDirname}/check_map_utils2.c",
+                "${fileDirname}/check_map_utils3.c",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/${fileBasenameNoExtension}",
+				"${workspaceFolder}/ft_printf/libftprintf.a",
+				"${workspaceFolder}/get_next_line/get_next_line.a",
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -21,8 +34,49 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "デバッガーによって生成されたタスク。"
         }
+		// {
+        //     "label": "prerun_make",
+        //     "type": "shell",
+        //     "command": "echo",
+        //     "args": ["make を実行します"],
+        //     "options": {
+        //     }
+        // },
+        // {
+        //     "label": "build",
+        //     "type": "shell",
+        //     "command": "make",
+        //     "args": [""],
+        //     "options": {
+        //         "cwd": "${workspaceFolder}"
+        //     },
+        //     "dependsOn": [
+        //         "prerun_make",
+        //     ]
+        // },
+        // {
+        //     "label": "build_debug",
+        //     "type": "shell",
+        //     "command": "./so_long",
+        //     "args": ["debug"],
+        //     "options": {
+        //         "cwd": "${workspaceFolder}"
+        //     },
+        //     "dependsOn": [
+        //         "prerun_make",
+        //     ]
+            
+        // },
+        // {
+        //     "label": "clean",
+        //     "type": "shell",
+        //     "command": "make",
+        //     "args": ["clean"],
+        //     "options": {
+        //         "cwd": "${workspaceFolder}"
+        //     }
+        // }
     ],
     "version": "2.0.0"
 }

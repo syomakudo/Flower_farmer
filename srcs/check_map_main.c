@@ -3,9 +3,9 @@
 /*初期化mapcheck*/
 void	init_mapcheck(t_mapcheck *cmap)
 {
-	cmap->count_P = 0;
-	cmap->count_C = 0;
-	cmap->count_E = 0;
+	cmap->count_p = 0;
+	cmap->count_c = 0;
+	cmap->count_e = 0;
 }
 
 /*mapの行の文字数が有効かどうか
@@ -16,19 +16,19 @@ void	init_mapcheck(t_mapcheck *cmap)
 */
 int	check_row(t_data *data)
 {
-	size_t	i;
+	size_t	j;
 	size_t	count;
 
-	i = 0;
+	j = 0;
 	count = 0;
-	while (data->map[i] != NULL)
+	while (data->map[j] != NULL)
 	{
-		count = ft_strlen(data->map[i]);
-		if (i == 0)
+		count = ft_strlen(data->map[j]);
+		if (j == 0)
 			data->col = count;
 		if (count != data->col)
 			return (-1);
-		i++;
+		j++;
 	}
 	return (0);
 }
@@ -41,24 +41,24 @@ int	check_frame(t_data *data)
 
 	i = 0;
 	j = 0;
-	while (data->map[i] != NULL)
+	while (data->map[j] != NULL)
 	{
-		while (data->map[i][j] != '\0')
+		while (data->map[j][i] != '\0')
 		{
-			if (i == 0 || i == data->row - 1)
+			if (j == 0 || j == data->row - 1)
 			{
-				if (data->map[i][j] != '1')
+				if (data->map[j][i] != '1')
 					return (-1);
 			}
-			else if (j == 0 || j == data->col - 1)
+			else if (i == 0 || i == data->col - 1)
 			{
-				if (data->map[i][j] != '1')
+				if (data->map[j][i] != '1')
 					return (-1);
 			}
-			j++;
+			i++;
 		}
-		j = 0;
-		i++;
+		i = 0;
+		j++;
 	}
 	return (0);
 }
@@ -66,6 +66,7 @@ int	check_frame(t_data *data)
 void check_map(t_data *data)
 {
 	t_mapcheck cmap;
+	
 	init_mapcheck(&cmap);
 	if (check_row(data) == -1)
 		ft_error(0);
@@ -73,5 +74,6 @@ void check_map(t_data *data)
 		ft_error(0);
 	if (check_count_pce(data, &cmap) == -1)
 		ft_error(0);
-	
+	if (check_position_pce(data) == -1)
+		ft_error(0);
 }

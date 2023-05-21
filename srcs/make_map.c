@@ -22,22 +22,22 @@ void	init_data(t_data *data)
 void	read_map(t_data *data, char *file_name)
 {
 	int	fd;
-	int	i;
+	int	j;
 	int	row;
 
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 		ft_error(-2);
-	i = 0;
+	j = 0;
 	row = data->row;
 	while (row-- > 0)
 	{
-		data->map[i] = get_next_line(fd);
-		if (data->map[i] == NULL)
+		data->map[j] = get_next_line(fd);
+		if (data->map[j] == NULL)
 			ft_error(-5);
-		i++;
+		j++;
 	}
-	data->map[i] = NULL;
+	data->map[j] = NULL;
 	if (close(fd) == -1)
 		ft_error(-4);
 }
@@ -50,19 +50,19 @@ int	count_read_row(char *file_name)
 	int		fd;
 	int		count;
 	char	buf[1];
-	int		i;
+	ssize_t		k;
 
 	count = 0;
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 		ft_error(-2);
-	i = -2;
+	k = -2;
 	while (1)
 	{
-		i = read(fd, buf, 1);
-		if (i == 0)
+		k = read(fd, buf, 1);
+		if (k == 0)
 			break ;
-		else if (i == -1)
+		else if (k == -1)
 			ft_error(-3);
 		if (buf[0] == '\n')
 			count++;
@@ -75,14 +75,16 @@ int	count_read_row(char *file_name)
 }
 
 /*mapを作成する*/
-void	make_map(t_data *data, char *file_name)
+t_data	make_map(char *file_name)
 {
-	init_data(data);
-	data->row = count_read_row(file_name);
-	if (data->row == 0)
+	t_data data;
+	init_data(&data);
+	data.row = count_read_row(file_name);
+	if (data.row == 0)
 		ft_error(0);
-	data->map = malloc(sizeof(char *) * (data->row + 1));
-	if (data->map == NULL)
+	data.map = malloc(sizeof(char *) * (data.row + 1));
+	if (data.map == NULL)
 		ft_error(-1);
-	read_map(data, file_name);
+	read_map(&data, file_name);
+	return (data);
 }

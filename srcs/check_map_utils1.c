@@ -4,21 +4,21 @@
 /*スタート（P）のアドレスを格納する
 **count_Pをインクリメント
 */
-void	put_add_start(t_data *data, size_t i, size_t j, t_mapcheck *cmap)
+void	put_add_start(t_data *data, size_t j, size_t i, t_mapcheck *cmap)
 {
-	data->x_start = i;
 	data->y_start = j;
-	cmap->count_P++;
+	data->x_start = i;
+	cmap->count_p++;
 }
 
 /*ゴール（E）のアドレスを格納する
 **count_Eをインクリメント
 */
-void	put_add_goal(t_data *data, size_t i, size_t j, t_mapcheck *cmap)
+void	put_add_goal(t_data *data, size_t j, size_t i, t_mapcheck *cmap)
 {
-	data->x_goal = i;
 	data->y_goal = j;
-	cmap->count_E++;
+	data->x_goal = i;
+	cmap->count_e++;
 }
 
 /*P,C,Eがあるかチェック
@@ -28,27 +28,27 @@ void	put_add_goal(t_data *data, size_t i, size_t j, t_mapcheck *cmap)
 */
 int	check_count_pce(t_data *data, t_mapcheck *cmap)
 {
-	size_t	i;
 	size_t	j;
+	size_t	i;
 
-	i = 0;
 	j = 0;
-	while (data->map[i] != NULL)
+	i = 0;
+	while (data->map[j] != NULL)
 	{
-		while (data->map[i][j] != '\0')
+		while (data->map[j][i] != '\0')
 		{
-			if (data->map[i][j] == 'P')
-				put_add_start(data, i, j, cmap);
-			else if (data->map[i][j] == 'C')
+			if (data->map[j][i] == 'P')
+				put_add_start(data, j, i, cmap);
+			else if (data->map[j][i] == 'C')
 				data->items++;
-			else if (data->map[i][j] == 'E')
-				put_add_goal(data, i, j, cmap);
-			j++;
+			else if (data->map[j][i] == 'E')
+				put_add_goal(data, j, i, cmap);
+			i++;
 		}
-		j = 0;
-		i++;
+		i = 0;
+		j++;
 	}
-	if (cmap->count_P != 1 || data->items == 0 || cmap->count_E != 1)
+	if (cmap->count_p != 1 || data->items == 0 || cmap->count_e != 1)
 		return (-1);
 	return (0);
 }
