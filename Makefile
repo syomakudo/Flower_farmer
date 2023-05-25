@@ -1,6 +1,6 @@
 NAME			= so_long
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror 
+CFLAGS			= -Wall -Wextra -Werror
 MINILIBX_DIR	= minilibx-linux
 GNL_DIR			= get_next_line
 PRINTF_DIR		= ft_printf

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syoma.k <syoma.k@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skudo <skudo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 12:41:15 by syoma.k           #+#    #+#             */
-/*   Updated: 2023/05/22 01:01:03 by syoma.k          ###   ########.fr       */
+/*   Updated: 2023/05/25 12:55:58 by skudo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	ft_error(int num)
 		ft_printf("Error\nfile close error\n");
 	else if (num == -5)
 		ft_printf("Error\ngnl error\n");
+	else if (num == -6)
+		ft_printf("Error\nmap size error\n");
 	else if (num == 1)
 		ft_printf("Error\nargument error\n");
 	exit(1);
@@ -80,6 +82,12 @@ void	set_mlx(t_data *data)
 			&data->img[4].width, &data->img[4].height);
 }
 
+void	map_size_error(t_data *data)
+{
+	free_map(data->map);
+	ft_error(-6);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -88,8 +96,8 @@ int	main(int argc, char **argv)
 		ft_error(1);
 	data = make_map(argv[1]);
 	check_map(&data);
-	if (data.row > 20 || data.col > 33)
-		ft_error(0);
+	if (data.row > 26 || data.col > 51)
+		map_size_error(&data);
 	set_mlx(&data);
 	data.x_now = data.x_start;
 	data.y_now = data.y_start;
