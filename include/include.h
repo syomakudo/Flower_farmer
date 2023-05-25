@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   include.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syoma.k <syoma.k@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skudo <skudo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 00:34:01 by syoma.k           #+#    #+#             */
-/*   Updated: 2023/05/22 00:59:33 by syoma.k          ###   ########.fr       */
+/*   Updated: 2023/05/25 13:09:31 by skudo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ typedef struct s_stack
 {
 	int				x;
 	int				y;
-	size_t			num_c;
-	size_t			num_e;
+	int			num_c;
+	int			num_e;
 	struct s_stack	*next;
 }					t_stack;
 

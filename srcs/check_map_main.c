@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syoma.k <syoma.k@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skudo <skudo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 12:39:53 by syoma.k           #+#    #+#             */
-/*   Updated: 2023/05/21 19:54:50 by syoma.k          ###   ########.fr       */
+/*   Updated: 2023/05/25 13:06:47 by skudo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	init_mapcheck(t_mapcheck *cmap)
 */
 int	check_row(t_data *data)
 {
-	size_t	j;
-	size_t	count;
+	int	j;
+	int	count;
 
 	j = 0;
 	count = 0;
@@ -48,8 +48,8 @@ int	check_row(t_data *data)
 /*mapの外枠が1で囲まれているか*/
 int	check_frame(t_data *data)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;

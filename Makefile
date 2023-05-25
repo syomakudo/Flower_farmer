@@ -32,7 +32,7 @@ $(NAME): $(OBJS)
 # $<でSRCSの中の.cファイルを取得
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(INCLUDE) -O3 -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) -O3 -c $< -o $@
 
 clean:
 	rm -rf $(OBJ_DIR)

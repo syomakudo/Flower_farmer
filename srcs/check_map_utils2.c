@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: syoma.k <syoma.k@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skudo <skudo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 12:41:00 by syoma.k           #+#    #+#             */
-/*   Updated: 2023/05/22 00:29:44 by syoma.k          ###   ########.fr       */
+/*   Updated: 2023/05/25 13:11:45 by skudo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ t_stack	*change_map(char **c_map, t_stack *stack, int y, int x)
 */
 t_stack	*check_position(char **c_map, t_stack *stack)
 {
-	t_stack	*tmp;
-
 	if (c_map[stack->y][stack->x] == 'C')
 		stack->num_c++;
 	if (c_map[stack->y][stack->x] == 'E')
@@ -85,8 +83,10 @@ stack->next->num_e = stack->num_e;
 @param tmp リストのアドレス
 @returns 作成したリストのアドレス
 */
-t_stack	*stack_main(char **c_map, t_stack *stack, t_stack *tmp)
+t_stack	*stack_main(char **c_map, t_stack *stack)
 {
+	t_stack	*tmp;
+
 	tmp = check_position(c_map, stack);
 	if (tmp == stack)
 	{
@@ -111,14 +111,13 @@ t_stack	*stack_main(char **c_map, t_stack *stack, t_stack *tmp)
 int	check_position_pce(t_data *data)
 {
 	t_stack	*stack;
-	t_stack	*tmp;
 	char	**c_map;
 
 	c_map = copy_map(data);
 	stack = ft_lstnew(data->y_start, data->x_start, 0, 0);
 	while (stack)
 	{
-		stack = stack_main(c_map, stack, tmp);
+		stack = stack_main(c_map, stack);
 		if (stack && stack->num_c == data->items && stack->num_e == 1)
 		{
 			free_map(c_map);
