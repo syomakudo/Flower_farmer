@@ -1,13 +1,12 @@
 # so_long
 
-Macで再現するにはXQuartzをインストールする必要あり。
+You need to install XQuartz to reproduce on Mac.
 
 
-## 実行方法
+## How to run make
 ```
 make
 ```
 ```
 ./solong {fileName}
 ```
-
