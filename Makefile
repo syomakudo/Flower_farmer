@@ -1,4 +1,4 @@
-NAME			= so_long
+NAME			= Flower_farmer
 CC				= cc
 CFLAGS			= -Wall -Wextra -Werror
 MINILIBX_DIR	= minilibx-linux
